@@ -1,6 +1,6 @@
 (.Welcome everyone.)
 
-	This application project arises when I finally decided to start with PyQt,
+	This application project arises when I finally decided to start with PyQt
 	
 	Objective:
 		Send a SMS message using the bluetooth tecnology and the Python appro-
