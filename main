@@ -9,7 +9,6 @@ from PyQt4 import QtGui, QtCore
 from sms_main_window import Ui_SMSMain
 
 if __name__ == "__main__":
-    import sys
     app = QtGui.QApplication(argv)
 
     SMSMain = QtGui.QMainWindow()

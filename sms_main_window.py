@@ -57,17 +57,17 @@ class Ui_SMSMain(object):
         print "Refresh button pressed"
         self.availableDevices = self.findDevices()
 
+        self.clearLayout(self.scrollAreaLayout)
         if len(self.availableDevices) > 0:
-            message = QtGui.QLabel("Chose from the mobile phones below:")
+            message = QtGui.QLabel("Chose from the mobile devices below:")
             self.scrollAreaLayout.addWidget(message)
-
+ 
             line = QtGui.QFrame()
             line.setFrameShape(QtGui.QFrame.HLine)
             line.setFrameShadow(QtGui.QFrame.Sunken)
-
+ 
             self.scrollAreaLayout.addWidget(line)
 
-            message.setParent(None)
             for address, name in self.availableDevices:
                 deviceName = QtGui.QLabel("     " + name)
 
@@ -81,18 +81,24 @@ class Ui_SMSMain(object):
                 self.scrollAreaLayout.addWidget(deviceName)
                 self.scrollAreaLayout.addWidget(line)
 
-                radio.setParent(None)
-                deviceName.setParent(None)
-                line.setParent(None)
-
                 radio.toggled.connect(functools.partial(self.radioActivated, address))
 
             self.scrollAreaWidgetContents.setLayout(self.scrollAreaLayout)
-            self.verticalLayout.addStretch(1)
+#            self.verticalLayout.addStretch(1)
+            self.scrollAreaLayout.addStretch(1)
         else:
-            scrollAreaLayout = QtGui.QVBoxLayout()
-            scrollAreaLayout.addWidget(QtGui.QLabel("No bluetooth devices found."))
+            self.scrollAreaLayout.addWidget(QtGui.QLabel("No bluetooth devices found."))
+            self.scrollAreaWidgetContents.setLayout(self.scrollAreaLayout)
 
+    def clearLayout(self, layout):
+        if layout is not None:
+            while layout.count():
+                item = layout.takeAt(0)
+                widget = item.widget()
+                if widget is not None:
+                    widget.deleteLater()
+                else:
+                    self.clearLayout(item.layout())
 
     def helpClicked(self):
         print "Help option activated "
@@ -123,12 +129,13 @@ class Ui_SMSMain(object):
 
         self.scrollArea = QtGui.QScrollArea(self.centralwidget)
         self.scrollArea.setFrameShape(QtGui.QFrame.NoFrame)
-#        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setWidgetResizable(True)
 
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 720, 385))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
+#
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
