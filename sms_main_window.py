@@ -45,7 +45,57 @@ class Ui_SMSMain(object):
         EditSMS = QtGui.QDialog()
         editDialog = Ui_SMSDetails()
         editDialog.setupUi(EditSMS)
-        EditSMS.exec_()
+        r = EditSMS.exec_()
+        if r:
+            phone_number = str(editDialog.lineEdit.text())
+            sms_data   = str(editDialog.textEdit.toPlainText())
+            for addr, name in self.availableDevices:
+                if addr == self.address:
+                    print "Great, the phone was found!"
+                    print "Please wait, looking for Dial-up networking service..."
+                    host = addr
+                    services = bluetooth.find_service(address = host)
+                    channel = 0
+                    if len(services) > 0:
+                        for service in services:
+                            name = service["name"]
+                            if name == "Dial-up networking" or name == "Dial-Up Networking" or name == "Dial-up Networking":
+                                channel = service["port"]
+
+                            if channel != 0:
+                                print "Found Dial-up networking at channel ", channel
+
+                                mobile = '52' + phone_number
+                                print "So, the phone is %s whose address is: %s " % (mobile, self.address)
+                                break
+                    else:
+                        QtGui.QMessageBox.about(self, "No available services")
+                        print "No available services"
+                
+                    if channel == 0:
+                        QtGui.QMessageBox.about(self, "No Dial-Up Networking service detected!")
+                        print "No Dial-Up Networking service detected!"
+                    
+                    
+                    socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+                    
+                    socket.connect((host, channel))
+                    
+                    socket.send('AT+CMGF=1\r')
+                    sleep(2)
+                    print socket.recv(1024)
+                    sleep(2)
+                    command = 'AT+CMGS="+' + mobile + '"\r'
+                    print "%r" % command
+                    socket.send(command)
+                    sleep(2)
+                    print socket.recv(1024)
+                    sleep(2)
+                    socket.send(sms_data+chr(26))
+                    sleep(2)
+                    print socket.recv(1024)
+                    sleep(2)
+                    socket.close()
 
     def radioActivated(self, address):
         self.actionSend.setEnabled(True)
