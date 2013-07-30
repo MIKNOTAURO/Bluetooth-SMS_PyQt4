@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'help_dialog.ui'
+# Form implementation generated from reading ui file 'ui_files/help_dialog.ui'
 #
-# Created: Wed Jul 24 19:36:24 2013
+# Created: Tue Jul 30 17:31:10 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -39,12 +39,10 @@ class Ui_Help(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 344, 374))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 344, 378))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
-
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
-
         self.label_2 = QtGui.QLabel(self.scrollAreaWidgetContents)
         self.label_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.label_2.setWordWrap(True)
@@ -66,5 +64,5 @@ class Ui_Help(object):
     def retranslateUi(self, Help):
         Help.setWindowTitle(_translate("Help", "Help", None))
         self.label.setText(_translate("Help", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Welcome</span></p></body></html>", None))
-        self.label_2.setText(_translate("Help", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:600;\">Requirements:</span></p><p><span style=\" font-size:10pt;\">1. Python language</span></p><p><span style=\" font-size:10pt;\">2. PyQt 4.9 or higher</span></p><p><span style=\" font-size:10pt;\">3. Computer with Bluetooth tecnology</span></p><p><span style=\" font-size:10pt;\">4. Mobile device with Bluetooth tecnology</span></p><p><span style=\" font-size:10pt;\"><br/></span><span style=\" font-size:11pt; font-weight:600;\">Notes:</span></p><p><span style=\" font-size:10pt;\">In order to allow you send sms messages, you must enable your bluetooth service in this computer and your mobile device too.</span></p><p><span style=\" font-size:10pt;\">From the available devices, choose one and then press the \'</span><span style=\" font-size:10pt; font-weight:600; font-style:italic;\">Send Message</span><span style=\" font-size:10pt;\">\' button</span></p></body></html>", None))
+        self.label_2.setText(_translate("Help", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:600;\">Requirements:</span></p><p><span style=\" font-size:10pt;\">1. Python language</span></p><p><span style=\" font-size:10pt;\">2. PyQt 4.9 or higher</span></p><p><span style=\" font-size:10pt;\">3. Computer with Bluetooth tecnology</span></p><p><span style=\" font-size:10pt;\">4. Mobile device with Bluetooth tecnology</span></p><p><span style=\" font-size:10pt;\">5. Balance in your phone device</span></p><p><span style=\" font-size:10pt;\"><br/></span><span style=\" font-size:11pt; font-weight:600;\">Notes:</span></p><p><span style=\" font-size:10pt;\">In order to allow you send sms messages, you must enable your bluetooth service in this computer and your mobile device too.</span></p><p><span style=\" font-size:10pt;\">From the available devices, choose one and then press the \'</span><span style=\" font-size:10pt; font-weight:600; font-style:italic;\">Send SMS</span><span style=\" font-size:10pt;\">\' button, and write your message, when done press the Ok button :)</span></p></body></html>", None))
 

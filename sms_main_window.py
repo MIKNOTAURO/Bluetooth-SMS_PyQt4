@@ -33,7 +33,7 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_SMSMain(object):
+class Ui_SMSMain(QtGui.QMainWindow):
     def __init__(self, parent=None):
         super(Ui_SMSMain, self).__init__()
 
@@ -49,10 +49,10 @@ class Ui_SMSMain(object):
         if r:
             phone_number = str(editDialog.lineEdit.text())
             sms_data   = str(editDialog.textEdit.toPlainText())
+            information = ""
             for addr, name in self.availableDevices:
                 if addr == self.address:
-                    print "Great, the phone was found!"
-                    print "Please wait, looking for Dial-up networking service..."
+                    information = 'Great, the phone was found!\nPlease wait, looking for Dial-up networking service...\n'
                     host = addr
                     services = bluetooth.find_service(address = host)
                     channel = 0
@@ -63,19 +63,21 @@ class Ui_SMSMain(object):
                                 channel = service["port"]
 
                             if channel != 0:
-                                print "Found Dial-up networking at channel ", channel
-
-                                mobile = '52' + phone_number
-                                print "So, the phone is %s whose address is: %s " % (mobile, self.address)
+                                information += "Found Dial-up networking at channel "
+                                information += str(channel)
                                 break
                     else:
-                        QtGui.QMessageBox.about(self, "No available services")
-                        print "No available services"
+                        QtGui.QMessageBox.critical(self, "Information", "No available services\nTry another device, please.")
+                        return
                 
                     if channel == 0:
-                        QtGui.QMessageBox.about(self, "No Dial-Up Networking service detected!")
-                        print "No Dial-Up Networking service detected!"
-                    
+                        QtGui.QMessageBox.critical(self, "Information",
+														"No Dial-Up Networking service detected!\nTry another device, please.")
+                        return
+
+                    QtGui.QMessageBox.information(self, "Information", information)
+
+                    mobile = '52' + phone_number 
                     
                     socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
                     
@@ -100,8 +102,6 @@ class Ui_SMSMain(object):
     def radioActivated(self, address):
         self.actionSend.setEnabled(True)
         self.address = address
-            
-        print "Enabling send button ", self.address
 
     def refreshDevicesList(self):
         print "Refresh button pressed"
@@ -119,9 +119,9 @@ class Ui_SMSMain(object):
             self.scrollAreaLayout.addWidget(line)
 
             for address, name in self.availableDevices:
-                deviceName = QtGui.QLabel("     " + name)
+                deviceName = QtGui.QLabel("     " + address)
 
-                radio = QtGui.QRadioButton(address)
+                radio = QtGui.QRadioButton(name)
 
                 line = QtGui.QFrame()
                 line.setFrameShape(QtGui.QFrame.HLine)
@@ -134,7 +134,6 @@ class Ui_SMSMain(object):
                 radio.toggled.connect(functools.partial(self.radioActivated, address))
 
             self.scrollAreaWidgetContents.setLayout(self.scrollAreaLayout)
-#            self.verticalLayout.addStretch(1)
             self.scrollAreaLayout.addStretch(1)
         else:
             self.scrollAreaLayout.addWidget(QtGui.QLabel("No bluetooth devices found."))
@@ -151,7 +150,6 @@ class Ui_SMSMain(object):
                     self.clearLayout(item.layout())
 
     def helpClicked(self):
-        print "Help option activated "
         helpWindow = QtGui.QDialog()
         helpDialog = Ui_Help()
         helpDialog.setupUi(helpWindow)
@@ -186,7 +184,6 @@ class Ui_SMSMain(object):
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 720, 385))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
 #
-
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
         self.verticalLayout.addWidget(self.scrollArea)
@@ -238,7 +235,6 @@ class Ui_SMSMain(object):
         self.actionHelp.setIcon(icon2)
         self.actionHelp.setObjectName(_fromUtf8("actionHelp"))
 #
-        
         self.toolBar.addAction(self.actionRefresh)
         self.toolBar.addAction(self.actionSend)
         self.toolBar.addAction(self.actionHelp)
@@ -275,4 +271,4 @@ class Ui_SMSMain(object):
         self.actionSend.setToolTip(_translate("SMSMain", "Send a SMS message to the selected device", None))
         self.actionSend.setStatusTip(_translate("SMSMain", "Send a SMS message to the selected device", None))
         self.actionSend.setShortcut(_translate("SMSMain", "Ctrl+S", None))
-        
+
