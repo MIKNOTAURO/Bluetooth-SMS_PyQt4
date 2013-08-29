@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from nose.tools import *
+#from nose.tools import *
 
 from sys import argv, exit
 
@@ -82,7 +82,6 @@ class Main(QtGui.QMainWindow):
 					info				= 'Great, the phone was found!\nPlease wait ...\nLooking for Dial-up networking service...\n'
 					host				= addr
 					services		= bluetooth.find_service(address = host)
-					print "services %d" % len(services)
 					channel			= 0
 					if len(services) > 0:
 						for service in services:
