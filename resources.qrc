@@ -1,16 +1,9 @@
 <RCC>
   <qresource prefix="/">
-    <file>images/exit-32x32-1.png</file>
-    <file>images/exit-32x32.png</file>
-    <file>images/exit.png</file>
-    <file>images/exit1.png</file>
-    <file>images/gnome-help.png</file>
-    <file>images/iconmonstr-monitoring-icon.svg</file>
-    <file>images/not-sent.svg</file>
-    <file>images/icon.png</file>
-    <file>images/preferences.png</file>
-    <file>images/search-32x32.png</file>
-    <file>images/search-52x52.png</file>
-    <file>images/sent.svg</file>
+    <file>images/exit.svg</file>
+    <file>images/help.svg</file>
+    <file>images/icon.svg</file>
+    <file>images/refresh.svg</file>
+    <file>images/send-sms.svg</file>
   </qresource>
 </RCC>
