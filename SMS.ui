@@ -41,8 +41,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>520</width>
-         <height>295</height>
+         <width>530</width>
+         <height>307</height>
         </rect>
        </property>
        <widget class="QWidget" name="widget" native="true">
@@ -73,6 +73,7 @@
    </attribute>
    <addaction name="actionRefresh"/>
    <addaction name="actionSend"/>
+   <addaction name="actionInbox"/>
    <addaction name="separator"/>
    <addaction name="actionHelp"/>
    <addaction name="actionQuit"/>
@@ -141,12 +142,22 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
-  <action name="actionEs">
+  <action name="actionInbox">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/images/inbox.svg</normaloff>:/images/inbox.svg</iconset>
+   </property>
    <property name="text">
-    <string>es</string>
+    <string>Inbox</string>
    </property>
    <property name="toolTip">
-    <string>Switch language (en-es)</string>
+    <string>View SMS messages</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+I</string>
    </property>
   </action>
  </widget>

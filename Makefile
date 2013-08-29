@@ -40,5 +40,5 @@ clean :
 
 all :
 	make clean
-	echo "Launching main application ..."
+	@echo "Launching main application ..."
 	$(PYTHON) $(MAIN)

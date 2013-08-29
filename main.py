@@ -1,29 +1,35 @@
+#!/usr/bin/env python
+
 # -*- coding: utf-8 -*-
-#from nose.tools import *
 
 from sys import argv, exit
 
-from PyQt4 import QtGui, QtCore
+from PyQt4.QtGui import QApplication, QVBoxLayout, QHBoxLayout
+from PyQt4.QtGui import QMainWindow, QDialog, QFrame
+from PyQt4.QtGui import QLabel, QRadioButton, QMessageBox
+
+from PyQt4.QtCore import QTranslator
 
 from time import sleep
 
 import bluetooth
 import functools
+import select
 
 from SMS import Ui_SMS
 from SMS_Help import Ui_Help
 from SMS_Send import Ui_SMSDetails
 
-class Help(QtGui.QDialog):
+class Help(QDialog):
 	def __init__(self):
-		QtGui.QDialog.__init__(self)
+		QDialog.__init__(self)
 
 		self.ui = Ui_Help()
 		self.ui.setupUi(self)
 
-class Main(QtGui.QMainWindow):
+class Main(QMainWindow):
 	def __init__(self, app):
-		QtGui.QMainWindow.__init__(self)
+		QMainWindow.__init__(self)
 
 		self.application = app
 
@@ -33,15 +39,16 @@ class Main(QtGui.QMainWindow):
 
 		self.ui.setupUi(self)
 #
-#		self.combo = QtGui.QComboBox()
+#		self.combo = QComboBox()
 #		self.ui.toolBar.addWidget(self.combo)
 #		self.combo.insertItems(1,["English","Spanish"])
 #
-		self.ui.actionHelp.triggered.connect(self.helpTriggered)
-		self.ui.actionSend.triggered.connect(self.sendTriggered)
 		self.ui.actionRefresh.triggered.connect(self.refreshDevices)
+		self.ui.actionSend.triggered.connect(self.sendTriggered)
+		self.ui.actionInbox.triggered.connect(self.inboxTriggered)
+		self.ui.actionHelp.triggered.connect(self.helpTriggered)
 
-		self.scrollAreaLayout = QtGui.QVBoxLayout()
+		self.scrollAreaLayout = QVBoxLayout()
 
 		self.address = ""
 
@@ -65,8 +72,43 @@ class Main(QtGui.QMainWindow):
 		aux = Help()
 		aux.exec_()
 
+	def connectToDevice(self):
+		self.socket	= bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+		sleep(2)
+		services		= bluetooth.find_service(address = self.address)
+		channel			= 0
+		if len(services) > 0:
+			self.info = 'Please wait ...\nLooking for Dial-up networking service...\n\n\n'
+			for service in services:
+				name		= service["name"]
+				if name == "Dial-up networking" or name == "Dial-Up Networking" or name == "Dial-up Networking":
+					channel = service["port"]
+					if channel != 0:
+						self.info += "Found Dial-up networking at channel %s" % str(channel)
+						QMessageBox.information(self, "Information", self.info)
+						break
+		else:
+			QMessageBox.critical(self, "Information",
+					"No available services\nTry another device, please.")
+			return
+
+		if channel == 0:
+			QMessageBox.critical(self, "Information",
+					"No Dial-up networking service detected!\nTry another device, please.")
+			return
+
+		self.socket.connect((self.address, channel))
+
+	def inboxTriggered(self):
+		self.clearLayout(self.scrollAreaLayout)
+#		if self.socket != "":
+			self.connectToDevice()
+
+		self.socket.send('AT+CMGL=4\r')
+
+
 	def sendTriggered(self):
-		edit_sms = QtGui.QDialog()
+		edit_sms = QDialog()
 		aux = Ui_SMSDetails()
 		aux.setupUi(edit_sms)
 
@@ -76,53 +118,25 @@ class Main(QtGui.QMainWindow):
 			phone_number	= str(aux.lineEdit.text())
 			sms_data			= str(aux.textEdit.toPlainText())
 
-			info					= ""
 			for addr, name in self.devices:
 				if addr == self.address:
-					info				= 'Great, the phone was found!\nPlease wait ...\nLooking for Dial-up networking service...\n'
-					host				= addr
-					services		= bluetooth.find_service(address = host)
-					channel			= 0
-					if len(services) > 0:
-						for service in services:
-							name		= service["name"]
-							if name == "Dial-up networking" or name == "Dial-Up Networking" or name == "Dial-up Networking":
-								channel = service["port"]
-								if channel != 0:
-									info += "Found Dial-up networking at channel "
-									info += str(channel)
-									break
-					else:
-						QtGui.QMessageBox.critical(self, "Information",
-								"No available services\nTry another device, please.")
-						return
 
-					if channel == 0:
-						QtGui.QMessageBox.critical(self, "Information",
-								"No Dial-up networking service detected!\nTry another device, please.")
-						return
-
-					QtGui.QMessageBox.information(self, "Information", info)
+					self.connectToDevice()
 
 					mobile	= '52' + phone_number
 
-					socket	= bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+					self.socket.send('AT+CMGF=1\r')
 					sleep(2)
-					socket.connect((host, channel))
-
-					socket.send('AT+CMGF=1\r')
-					sleep(2)
-					print socket.recv(1024)
+					print self.socket.recv(1024)
 					command	= 'AT+CMGS="+' + mobile + '"\r'
 					print "%r" % command
-					socket.send(command)
+					self.socket.send(command)
 					sleep(2)
-					print socket.recv(1024)
-					socket.send(sms_data+chr(26))
+					print self.socket.recv(1024)
+					self.socket.send(sms_data+chr(26))
 					sleep(2)
-					print socket.recv(1024)
-					socket.close()
-
+					print self.socket.recv(1024)
+					self.socket.close()
 
 	def clearLayout(self, layout):
 		if layout is not None:
@@ -135,6 +149,7 @@ class Main(QtGui.QMainWindow):
 					self.clearLayout(item.layout())
 
 	def radioToggled(self, address):
+		self.ui.actionInbox.setEnabled(True)
 		self.ui.actionSend.setEnabled(True)
 		self.address = address
 		
@@ -148,24 +163,24 @@ class Main(QtGui.QMainWindow):
 
 		if len(self.devices) > 0:
 			self.ui.actionSend.setEnabled(False)
-			message = QtGui.QLabel(self.tr("Chose from the mobile devices below:"))
+			message = QLabel(self.tr("Chose from the mobile devices below:"))
 
 			self.scrollAreaLayout.addWidget(message)
 
-			separator = QtGui.QFrame()
-			separator.setFrameShape(QtGui.QFrame.HLine)
-			separator.setFrameShadow(QtGui.QFrame.Sunken)
+			separator = QFrame()
+			separator.setFrameShape(QFrame.HLine)
+			separator.setFrameShadow(QFrame.Sunken)
 
 			self.scrollAreaLayout.addWidget(separator)
 
 			for address, name in self.devices:
-				deviceName = QtGui.QLabel("     " + address)
+				deviceName = QLabel("     " + address)
 
-				radio = QtGui.QRadioButton(name)
+				radio = QRadioButton(name)
 
-				separator = QtGui.QFrame()
-				separator.setFrameShape(QtGui.QFrame.HLine)
-				separator.setFrameShadow(QtGui.QFrame.Sunken)
+				separator = QFrame()
+				separator.setFrameShape(QFrame.HLine)
+				separator.setFrameShadow(QFrame.Sunken)
 
 				self.scrollAreaLayout.addWidget(radio)
 				self.scrollAreaLayout.addWidget(deviceName)
@@ -177,14 +192,15 @@ class Main(QtGui.QMainWindow):
 			self.scrollAreaLayout.addStretch(1)
 			
 		else:
-			self.scrollAreaLayout.addWidget(QtGui.QLabel("No bluetooth devices found."))
+			self.scrollAreaLayout.addWidget(QLabel("No bluetooth devices found."))
 			self.ui.scrollAreaWidgetContents.setLayout(self.scrollAreaLayout)
 
 
 if __name__ == "__main__":
-  app = QtGui.QApplication(argv)
+  app = QApplication(argv)
 
   SMSMain = Main(app)
   SMSMain.show()
   exit(app.exec_())
+
 

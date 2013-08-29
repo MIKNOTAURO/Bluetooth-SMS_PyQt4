@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'SMS.ui'
 #
-# Created: Wed Aug 28 22:36:01 2013
+# Created: Thu Aug 29 15:32:08 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -41,7 +41,7 @@ class Ui_SMS(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 520, 295))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 530, 307))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.widget = QtGui.QWidget(self.scrollAreaWidgetContents)
         self.widget.setGeometry(QtCore.QRect(10, 10, 501, 281))
@@ -76,10 +76,15 @@ class Ui_SMS(object):
         icon4.addPixmap(QtGui.QPixmap(_fromUtf8(":/images/exit.svg")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionQuit.setIcon(icon4)
         self.actionQuit.setObjectName(_fromUtf8("actionQuit"))
-        self.actionEs = QtGui.QAction(SMS)
-        self.actionEs.setObjectName(_fromUtf8("actionEs"))
+        self.actionInbox = QtGui.QAction(SMS)
+        self.actionInbox.setEnabled(False)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(_fromUtf8(":/images/inbox.svg")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionInbox.setIcon(icon5)
+        self.actionInbox.setObjectName(_fromUtf8("actionInbox"))
         self.toolBar.addAction(self.actionRefresh)
         self.toolBar.addAction(self.actionSend)
+        self.toolBar.addAction(self.actionInbox)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.actionHelp)
         self.toolBar.addAction(self.actionQuit)
@@ -103,7 +108,8 @@ class Ui_SMS(object):
         self.actionQuit.setText(_translate("SMS", "Quit", None))
         self.actionQuit.setToolTip(_translate("SMS", "Exit application", None))
         self.actionQuit.setShortcut(_translate("SMS", "Ctrl+Q", None))
-        self.actionEs.setText(_translate("SMS", "es", None))
-        self.actionEs.setToolTip(_translate("SMS", "Switch language (en-es)", None))
+        self.actionInbox.setText(_translate("SMS", "Inbox", None))
+        self.actionInbox.setToolTip(_translate("SMS", "View SMS messages", None))
+        self.actionInbox.setShortcut(_translate("SMS", "Ctrl+Shift+I", None))
 
 import resources_rc
