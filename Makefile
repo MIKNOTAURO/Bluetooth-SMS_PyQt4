@@ -38,7 +38,7 @@ RM			=	rm -v
 GARBAGE		= 	*.pyc *~
 
 all :
-	make clean
+	make first
 	@echo "Launching main application ..."
 
 first: clean
