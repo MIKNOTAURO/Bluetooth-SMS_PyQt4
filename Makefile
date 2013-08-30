@@ -12,33 +12,37 @@
 # 	
 #
 # Launch the app.
-# 	Command: python main.py
+#	$ python main.py
 #
 
-UI_FILES	= SMS.ui\
-						help_dialog.ui\
-						sms_details.ui
+UI_FILES	= 	SMS.ui			\
+			  	help_dialog.ui	\
+				sms_details.ui
 
-RESOURCES = resources.qrc 
+RESOURCES 	= 	resources.qrc 
 
-#SOURCES = SMS.py\
-#					main.py\
-#					__init__.py\
-#					SMS_Help.py\
-#					SMS_Send.py\
-#					resources_rc.py
+#SOURCES 	= 	SMS.py			\
+#				main.py			\
+#				__init__.py		\
+#				SMS_Help.py		\
+#				SMS_Send.py		\
+#				resources_rc.py
 
-MAIN		= main.py
+MAIN		= 	main.py
 
-#python, pyuic4 and pyrcc4 binaries
-PYTHON	= python
-PYUIC		= pyuic4
-PYRCC		= pyrcc4
-
-clean :
-	-rm *.pyc *~
+# python, pyuic4 and pyrcc4 binaries
+PYTHON		= 	python
+PYUIC		= 	pyuic4
+PYRCC		= 	pyrcc4
+RM			=	rm -v
+GARBAGE		= 	*.pyc *~
 
 all :
 	make clean
 	@echo "Launching main application ..."
+
+first: clean
 	$(PYTHON) $(MAIN)
+
+clean :
+	- $(RM) $(GARBAGE)

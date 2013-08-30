@@ -97,12 +97,14 @@ class Main(QMainWindow):
 					"No Dial-up networking service detected!\nTry another device, please.")
 			return
 
-		self.socket.connect((self.address, channel))
+		s = self.socket.connect((self.address, channel))
+		print s
+
 
 	def inboxTriggered(self):
 		self.clearLayout(self.scrollAreaLayout)
 #		if self.socket != "":
-			self.connectToDevice()
+		self.connectToDevice()
 
 		self.socket.send('AT+CMGL=4\r')
 
