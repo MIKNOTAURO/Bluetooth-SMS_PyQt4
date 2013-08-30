@@ -38,7 +38,7 @@ RM			=	rm -v
 GARBAGE		=	*.pyc *~
 
 
-first: 
+first: clean
 	$(PYTHON) $(MAIN)
 
 clean :
