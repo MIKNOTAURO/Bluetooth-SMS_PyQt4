@@ -35,15 +35,10 @@ PYTHON		= 	python
 PYUIC		= 	pyuic4
 PYRCC		= 	pyrcc4
 RM			=	rm -v
-GARBAGE		=	*.pyc *~
-
+GARBAGE		= 	*.pyc *~
 
 first: clean
 	$(PYTHON) $(MAIN)
 
 clean :
-	if [ $(ls $GARBAGE &> /dev/null) ]
-	then
-		$(RM) $(GARBAGE) 2> /dev/null
-	fi
-
+	- $(RM) $(GARBAGE)
