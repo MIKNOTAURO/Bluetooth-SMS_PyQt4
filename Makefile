@@ -8,7 +8,9 @@
 # 	Sample command: pylupdate4 *ui -ts lang_fr.ts
 #
 # Once the .ts file is ready, it must be edited with Qt Linguist program.
-# 	Sample command: linguist lang_fr
+# 	Sample command: linguist lang_fr.ts
+# 	After translate all, it's necessary to Release the translation file:
+# 	Go to File menu > Release. A new lang_fr.qm file will be created (don't delete it)
 # 	
 #
 # Launch the app.

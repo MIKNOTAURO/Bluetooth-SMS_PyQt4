@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>538</width>
+    <width>552</width>
     <height>374</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>383</width>
+    <height>247</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>SMS Service</string>
@@ -31,7 +37,10 @@
     <item>
      <widget class="QScrollArea" name="scrollArea">
       <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
+       <enum>QFrame::Panel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
       </property>
       <property name="widgetResizable">
        <bool>true</bool>
@@ -41,17 +50,17 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>530</width>
-         <height>307</height>
+         <width>532</width>
+         <height>293</height>
         </rect>
        </property>
        <widget class="QWidget" name="widget" native="true">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>501</width>
-          <height>281</height>
+          <x>50</x>
+          <y>40</y>
+          <width>120</width>
+          <height>80</height>
          </rect>
         </property>
        </widget>

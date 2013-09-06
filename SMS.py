@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'SMS.ui'
 #
-# Created: Thu Aug 29 15:32:08 2013
+# Created: Mon Sep  2 19:05:33 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,8 @@ except AttributeError:
 class Ui_SMS(object):
     def setupUi(self, SMS):
         SMS.setObjectName(_fromUtf8("SMS"))
-        SMS.resize(538, 374)
+        SMS.resize(552, 374)
+        SMS.setMinimumSize(QtCore.QSize(383, 247))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/images/icon.svg")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         SMS.setWindowIcon(icon)
@@ -37,14 +38,15 @@ class Ui_SMS(object):
         self.horizontalLayout = QtGui.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.scrollArea = QtGui.QScrollArea(self.centralwidget)
-        self.scrollArea.setFrameShape(QtGui.QFrame.NoFrame)
+        self.scrollArea.setFrameShape(QtGui.QFrame.Panel)
+        self.scrollArea.setFrameShadow(QtGui.QFrame.Sunken)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 530, 307))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 532, 293))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.widget = QtGui.QWidget(self.scrollAreaWidgetContents)
-        self.widget.setGeometry(QtCore.QRect(10, 10, 501, 281))
+        self.widget.setGeometry(QtCore.QRect(50, 40, 120, 80))
         self.widget.setObjectName(_fromUtf8("widget"))
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.horizontalLayout.addWidget(self.scrollArea)

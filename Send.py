@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'sms_details.ui'
 #
-# Created: Mon Sep  2 17:21:33 2013
+# Created: Mon Sep  2 21:47:19 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -50,6 +50,8 @@ class Ui_SMSDetails(object):
         self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
         self.gridLayout.addWidget(self.lineEdit, 1, 0, 1, 1)
         self.plainTextEdit = QtGui.QPlainTextEdit(SMSDetails)
+        self.plainTextEdit.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.plainTextEdit.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.plainTextEdit.setObjectName(_fromUtf8("plainTextEdit"))
         self.gridLayout.addWidget(self.plainTextEdit, 3, 0, 2, 1)
 
@@ -57,9 +59,21 @@ class Ui_SMSDetails(object):
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), SMSDetails.accept)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), SMSDetails.reject)
         QtCore.QMetaObject.connectSlotsByName(SMSDetails)
+        SMSDetails.setTabOrder(self.lineEdit, self.plainTextEdit)
+        SMSDetails.setTabOrder(self.plainTextEdit, self.buttonBox)
 
     def retranslateUi(self, SMSDetails):
         SMSDetails.setWindowTitle(_translate("SMSDetails", "Edit SMS Message", None))
         self.label.setText(_translate("SMSDetails", "Phone number", None))
         self.label_2.setText(_translate("SMSDetails", "Type your message", None))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtGui.QApplication(sys.argv)
+    SMSDetails = QtGui.QDialog()
+    ui = Ui_SMSDetails()
+    ui.setupUi(SMSDetails)
+    SMSDetails.show()
+    sys.exit(app.exec_())
 

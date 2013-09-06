@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="/">
+    <file>exit.svg</file>
+    <file>help.svg</file>
+    <file>icon.svg</file>
+    <file>inbox.svg</file>
+    <file>not-sent.svg</file>
+    <file>refresh.svg</file>
+    <file>send-sms.svg</file>
+    <file>sent.svg</file>
+  </qresource>
+</RCC>
