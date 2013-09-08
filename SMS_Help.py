@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'help_dialog.ui'
 #
-# Created: Mon Aug 19 21:30:09 2013
+# Created: Sun Sep  8 17:35:08 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_Help(object):
     def setupUi(self, Help):
         Help.setObjectName(_fromUtf8("Help"))
-        Help.resize(370, 470)
+        Help.resize(419, 448)
         Help.setWindowOpacity(1.0)
         Help.setModal(True)
         self.verticalLayout = QtGui.QVBoxLayout(Help)
@@ -39,7 +39,7 @@ class Ui_Help(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 344, 378))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, -214, 377, 570))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
@@ -63,6 +63,6 @@ class Ui_Help(object):
 
     def retranslateUi(self, Help):
         Help.setWindowTitle(_translate("Help", "Help", None))
-        self.label.setText(_translate("Help", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Welcome</span></p></body></html>", None))
-        self.label_2.setText(_translate("Help", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:600;\">Requirements:</span></p><p><span style=\" font-size:10pt;\">1. Python language</span></p><p><span style=\" font-size:10pt;\">2. PyQt 4.9 or higher</span></p><p><span style=\" font-size:10pt;\">3. Computer with Bluetooth tecnology</span></p><p><span style=\" font-size:10pt;\">4. Mobile device with Bluetooth tecnology</span></p><p><span style=\" font-size:10pt;\">5. Balance in your phone device</span></p><p><span style=\" font-size:10pt;\"><br/></span><span style=\" font-size:11pt; font-weight:600;\">Notes:</span></p><p><span style=\" font-size:10pt;\">In order to allow you send sms messages, you must enable your bluetooth service in this computer and your mobile device too.</span></p><p><span style=\" font-size:10pt;\">From the available devices, choose one and then press the \'</span><span style=\" font-size:10pt; font-weight:600; font-style:italic;\">Send SMS</span><span style=\" font-size:10pt;\">\' button, and write your message, when done press the Ok button :)</span></p></body></html>", None))
+        self.label.setText(_translate("Help", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Welcome!</span></p></body></html>", None))
+        self.label_2.setText(_translate("Help", "<html><head/><body><p align=\"justify\"><span style=\" font-size:11pt; font-weight:600;\">Aim:</span></p><p align=\"justify\">This software allows you to send and receive SMS messages through a bluetooth link.</p><p align=\"justify\"><span style=\" font-size:11pt; font-weight:600;\">How it works?</span></p><p align=\"justify\">The RFCOMM protocol is used to establish the bluetooth link between the computer and the mobile phone. Once the bluetooth link is created, the a Dial-up networking (DUN) service is needed in order to allow send the AT commands to the mobile device.</p><p align=\"justify\">NOTE: To use DUN, you must set both your phone’s and your computer’s Bluetooth settings to On and form a trusted pair between your computer and your mobile device.</p><p align=\"justify\">Finally, you need balance in your phone device!!!</p><p align=\"justify\"><span style=\" font-size:11pt; font-weight:600;\">Send SMS:</span></p><p align=\"justify\">1. Once you have refreshed the devices list, you must choise a mobile device to connect.</p><p align=\"justify\">2. Click on Send SMS button. This action performs a search looking for the DUN service. If that service is found, you will be able to insert the thelephone number target and the message to send.</p><p align=\"justify\">3. When done, press the Ok button.</p><p align=\"justify\"><span style=\" font-size:11pt; font-weight:600;\">Receive SMS:</span></p><p align=\"justify\">1. Once you have refressed the devices list, you must choose a mobile device to connect.</p><p align=\"justify\">2. Click on Inbox button. This action performs a search looking the DUN service. If that service is found, the SMS messages will be listed.</p></body></html>", None))
 

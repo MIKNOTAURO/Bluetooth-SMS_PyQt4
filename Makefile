@@ -41,7 +41,6 @@ GARBAGE		= 	*.pyc *~
 
 all :
 	make first
-	@echo "Launching main application ..."
 
 first: clean
 	$(PYTHON) $(MAIN)

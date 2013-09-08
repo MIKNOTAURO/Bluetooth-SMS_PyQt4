@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>370</width>
-    <height>470</height>
+    <width>419</width>
+    <height>448</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Welcome&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Welcome!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
@@ -48,16 +48,16 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>344</width>
-        <height>378</height>
+        <y>-214</y>
+        <width>377</width>
+        <height>570</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Requirements:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;1. Python language&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;2. PyQt 4.9 or higher&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;3. Computer with Bluetooth tecnology&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;4. Mobile device with Bluetooth tecnology&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;5. Balance in your phone device&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Notes:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;In order to allow you send sms messages, you must enable your bluetooth service in this computer and your mobile device too.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;From the available devices, choose one and then press the '&lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic;&quot;&gt;Send SMS&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;' button, and write your message, when done press the Ok button :)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Aim:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;This software allows you to send and receive SMS messages through a bluetooth link.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;How it works?&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The RFCOMM protocol is used to establish the bluetooth link between the computer and the mobile phone. Once the bluetooth link is created, the a Dial-up networking (DUN) service is needed in order to allow send the AT commands to the mobile device.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;NOTE: To use DUN, you must set both your phone’s and your computer’s Bluetooth settings to On and form a trusted pair between your computer and your mobile device.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Finally, you need balance in your phone device!!!&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Send SMS:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;1. Once you have refreshed the devices list, you must choise a mobile device to connect.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;2. Click on Send SMS button. This action performs a search looking for the DUN service. If that service is found, you will be able to insert the thelephone number target and the message to send.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;3. When done, press the Ok button.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Receive SMS:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;1. Once you have refressed the devices list, you must choose a mobile device to connect.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;2. Click on Inbox button. This action performs a search looking the DUN service. If that service is found, the SMS messages will be listed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

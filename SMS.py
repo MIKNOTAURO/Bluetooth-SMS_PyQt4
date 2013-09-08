@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'SMS.ui'
 #
-# Created: Mon Sep  2 19:05:33 2013
+# Created: Sat Sep  7 15:18:46 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -38,12 +38,12 @@ class Ui_SMS(object):
         self.horizontalLayout = QtGui.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.scrollArea = QtGui.QScrollArea(self.centralwidget)
-        self.scrollArea.setFrameShape(QtGui.QFrame.Panel)
+        self.scrollArea.setFrameShape(QtGui.QFrame.NoFrame)
         self.scrollArea.setFrameShadow(QtGui.QFrame.Sunken)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 532, 293))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 544, 307))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.widget = QtGui.QWidget(self.scrollAreaWidgetContents)
         self.widget.setGeometry(QtCore.QRect(50, 40, 120, 80))
