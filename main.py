@@ -54,7 +54,7 @@ class Main(QMainWindow):
     # address and channel to establish the connection
     self.address = ""
     self.channel = 0
-    self.delay = 1
+    self.delay = 1.4
 
 
   # Slot 'helpTriggered' triggered with the actionHelp action 
@@ -121,7 +121,7 @@ class Main(QMainWindow):
     print self.socket.recv(1024) # Show result
     
     # Set the storage to read
-    self.socket.send('AT+CPMS="ME"\r')
+    self.socket.send('AT+CPMS="SM"\r')
     sleep(self.delay)
     print self.socket.recv(1024)
 
@@ -167,6 +167,7 @@ class Main(QMainWindow):
           sleep(self.delay)
           print self.socket.recv(1024)
           command	= 'AT+CMGS="+' + mobile + '"\r'
+          print "%r" % command
           self.socket.send(command) # Configure the mobile
           sleep(self.delay)
           print self.socket.recv(1024)
