@@ -1,5 +1,5 @@
 # In order to include ui files, you need carry out to python code files.
-# 	Sample command: pyuic4 SMS.ui -o SMS.py
+# 	Sample command: pyuic4 sms.ui -o SMS.py
 # resources.qrc file too.
 # 	Command: pyuic4 resources.qrc -o resources_rc.py
 #
@@ -17,7 +17,7 @@
 #	$ python main.py
 #
 
-UI_FILES	= 	SMS.ui			\
+UI_FILES	= 	sms.ui			\
 			  	help_dialog.ui	\
 				sms_details.ui
 
@@ -39,11 +39,28 @@ PYRCC		= 	pyrcc4
 RM			=	rm -v
 GARBAGE		= 	*.pyc *~
 
-all :
+compile:
+	# translations
+	lrelease lang_es.ts -compress -qm lang_es.qm
+	lrelease lang_en.ts -compress -qm lang_en.qm
+	# ui
+	pyuic4 sms.ui -o SMS.py
+	pyuic4 sms_details.ui -o SMS_Send.py
+	pyuic4 help_dialog.ui -o SMS_Help.py
+	# resources
+	pyrcc4 resources.qrc -o resources_rc.py
+	echo "Compilation done!"
+
+run:
+	make compile
 	make first
+
+all:
+	make run
 
 first: clean
 	$(PYTHON) $(MAIN)
 
 clean :
 	- $(RM) $(GARBAGE)
+

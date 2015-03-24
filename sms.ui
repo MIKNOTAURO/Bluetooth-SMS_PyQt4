@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>552</width>
-    <height>374</height>
+    <width>578</width>
+    <height>376</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -50,8 +50,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>544</width>
-         <height>307</height>
+         <width>570</width>
+         <height>309</height>
         </rect>
        </property>
        <widget class="QWidget" name="widget" native="true">

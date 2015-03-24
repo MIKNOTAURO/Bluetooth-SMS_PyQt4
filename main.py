@@ -54,16 +54,133 @@ class Main(QMainWindow):
     # address and channel to establish the connection
     self.address = ""
     self.channel = 0
-    self.delay = 1.4
+    self.delay = 2
 
 
-  # Slot 'helpTriggered' triggered with the actionHelp action 
-  def helpTriggered(self):
-    aux = Help()
-    aux.exec_()
+  # Look up for nearly devices
+  def refreshDevices(self):
+    self.devices = bluetooth.discover_devices(lookup_names = True) # Store human name
 
 
-  # Look up for Dial-up networking
+  # Slot 'refreshTriggered' triggered with the actionRefresh action 
+  def refreshTriggered(self):
+    try:
+      self.refreshDevices()
+    except bluetooth.BluetoothError, e:   # Throwed when Bluetooth is Off
+      label = QLabel(self.tr(e.message))
+      self.widgetLayout.addWidget(label)
+      self.ui.scrollAreaWidgetContents.setLayout(self.widgetLayout)
+      return
+    
+    # Refresh the widget element with the nearly devices
+    if len(self.devices) > 0:
+      self.clearLayout(self.widgetLayout)
+      self.ui.actionSend.setEnabled(False)
+      self.ui.actionInbox.setEnabled(False)
+      message = QLabel(self.tr("Chose from the mobile devices below:"))
+
+      self.widgetLayout.addWidget(message)
+
+      separator = QFrame()
+      separator.setFrameShape(QFrame.HLine)
+      separator.setFrameShadow(QFrame.Sunken)
+
+      self.widgetLayout.addWidget(separator)
+
+      for address, name in self.devices:
+        deviceName = QLabel("    " + address)
+        radio = QRadioButton(name)
+
+        separator = QFrame()
+        separator.setFrameShape(QFrame.HLine)
+        separator.setFrameShadow(QFrame.Sunken)
+
+        # add components to layout
+        self.widgetLayout.addWidget(radio)
+        self.widgetLayout.addWidget(deviceName)
+        self.widgetLayout.addWidget(separator)
+        
+        # Send the address to connect. The 'functools' module is used to
+        radio.toggled.connect(functools.partial(self.radioToggled, address))
+
+      self.ui.scrollAreaWidgetContents.setLayout(self.widgetLayout)
+      self.widgetLayout.addStretch(1) # Important to stetic :)
+    else:
+      message = self.tr("No devices found.\n\t")
+      message += self.tr("Check that the device you are searching for\n\t")
+      message += self.tr("has Bluetooth switched on and is set visible.")
+
+      self.widgetLayout.addWidget(QLabel(message))
+      self.ui.scrollAreaWidgetContents.setLayout(self.widgetLayout)
+
+
+  # Slot 'radioToggled' triggered when the radio button is toggled
+  def radioToggled(self, address): # param address to connect
+    self.ui.actionInbox.setEnabled(True) # Enable the actionInbox action
+    self.ui.actionSend.setEnabled(True)  # Enable the actionSend action
+    self.address = address               # Setting the address to connect
+
+
+  # Clear the widget layout
+  def clearLayout(self, layout):
+    if layout is not None:
+      while layout.count():
+        item = layout.takeAt(0)
+        widget = item.widget()
+        if widget is not None:
+          widget.deleteLater()
+        else:
+          self.clearLayout(item.layout())
+
+
+  # Slot 'sendTriggered' triggered with the actionSend action 
+  def sendTriggered(self):
+    self.lookUpForDUN()
+    if self.channel == 0:
+      return
+
+    edit_sms = QDialog()
+    aux = Ui_SMSDetails() # Create a SMSDetails dialog
+    aux.setupUi(edit_sms) # Load the dialog
+
+    r = edit_sms.exec_() # Store response from dialog in r
+    
+    # The user accept to send the SMS message
+    if r:
+      # Get phone number from the QDialog
+      phone_number  = str(aux.lineEdit.text())
+      sms_data      = str(aux.plainTextEdit.toPlainText())
+      for addr, name in self.devices:
+        if addr == self.address:
+          try:
+            self.connectToDevice()
+          except bluetooth.BluetoothError, e:
+            message = self.tr(e.message)
+            QMessageBox.critical(self, "Error", message)
+            return
+  
+          # Configure the mobile target, add 52 = Mexico code
+          mobile	= '52' + phone_number # ten digits
+
+          self.socket.send('AT+CMGF=1\r') # Text mode again
+          sleep(self.delay)
+          print self.socket.recv(1024)
+          command	= 'AT+CMGS="+' + mobile + '"\r' # Prepare command to send
+          print "%r" % command
+          self.socket.send(command) # Configure the mobile
+          sleep(self.delay)
+          print self.socket.recv(1024)
+
+          self.socket.send(sms_data+chr(26)) # Send the message text with
+                                             # the Cotrol+Z = chr(26) commbination
+          sleep(self.delay)
+          print self.socket.recv(1024)
+
+          sleep(self.delay)
+          self.socket.close() # Close the socket connection
+ 
+
+  # Look up for Dial-up networking is DUN
   def lookUpForDUN(self):
     # Look up for services offerted by the mobile device choosed
     services = bluetooth.find_service(address = self.address)
@@ -106,7 +223,9 @@ class Main(QMainWindow):
   def inboxTriggered(self):
     # First look up for Dial-up networking
     self.lookUpForDUN()
-    
+    if self.channel == 0:
+      return
+
     # Throw an exception when cannot connect
     try:
       self.connectToDevice()
@@ -116,14 +235,19 @@ class Main(QMainWindow):
       return
 
     # Set the SMS mode (1 = text mode, 0 = PDU mode)
-    self.socket.send('AT+CMGF=1\r')
+    self.socket.send('AT+CMGF=1\r') # an at command!!!
     sleep(self.delay) # Wait a second
     print self.socket.recv(1024) # Show result
     
-    # Set the storage to read
-    self.socket.send('AT+CPMS="SM"\r')
+    # Does it support read
+    self.socket.send('AT+CPMS=?')
     sleep(self.delay)
-    print self.socket.recv(1024)
+    print self.socket.revc(1024) # Print response
+
+    # Set the storage to read
+    self.socket.send('AT+CPMS="SM"\r') # SM = memoria SIM
+    sleep(self.delay)
+    self.socket.recv(1024)
 
     # Retrieve all messages from the storage specified
     self.socket.send('AT+CMGL="ALL"\r')
@@ -134,132 +258,18 @@ class Main(QMainWindow):
     self.socket.close() # Close the socket
 
 
-  # Slot 'sendTriggered' triggered with the actionSend action 
-  def sendTriggered(self):
-    self.lookUpForDUN()
-    if self.channel == 0:
-      return
-
-    edit_sms = QDialog()
-    aux = Ui_SMSDetails()
-    aux.setupUi(edit_sms)
-
-    r = edit_sms.exec_()
-    
-    # The user accept to send the SMS message
-    if r:
-      # Get phone number from the QDialog
-      phone_number  = str(aux.lineEdit.text())
-      sms_data      = str(aux.plainTextEdit.toPlainText())
-      for addr, name in self.devices:
-        if addr == self.address:
-          try:
-            self.connectToDevice()
-          except bluetooth.BluetoothError, e:
-            message = self.tr(e.message)
-            QMessageBox.critical(self, "Error", message)
-            return
-  
-          # Configure the mobile target, add 52 = Mexico code
-          mobile	= '52' + phone_number
-
-          self.socket.send('AT+CMGF=1\r')
-          sleep(self.delay)
-          print self.socket.recv(1024)
-          command	= 'AT+CMGS="+' + mobile + '"\r'
-          print "%r" % command
-          self.socket.send(command) # Configure the mobile
-          sleep(self.delay)
-          print self.socket.recv(1024)
-
-          self.socket.send(sms_data+chr(26)) # Send the message text with
-                                             # the Cotrol+Z commbination
-          sleep(self.delay)
-          print self.socket.recv(1024)
-
-          sleep(self.delay)
-          self.socket.close() # Close the socket connection
- 
-  # Clear the widget layout
-  def clearLayout(self, layout):
-    if layout is not None:
-      while layout.count():
-        item = layout.takeAt(0)
-        widget = item.widget()
-        if widget is not None:
-          widget.deleteLater()
-        else:
-          self.clearLayout(item.layout())
+  # Slot 'helpTriggered' triggered with the actionHelp action 
+  def helpTriggered(self):
+    aux = Help()
+    aux.exec_()
 
 
-  # Slot 'radioToggled' triggered when the actionSend action is toggled
-  def radioToggled(self, address):
-    self.ui.actionInbox.setEnabled(True) # Enable the actionInbox action
-    self.ui.actionSend.setEnabled(True)  # Enable the actionSend action
-    self.address = address               # Setting the address to connect
 
-
-  # Look up for nearly devices
-  def refreshDevices(self):
-    self.devices = bluetooth.discover_devices(lookup_names = True)
-
-
-  # Slot 'refreshTriggered' triggered with the actionRefresh action 
-  def refreshTriggered(self):
-    try:
-      self.refreshDevices()
-    except bluetooth.BluetoothError, e:   # Throwed when Bluetooth is Off
-      label = QLabel(self.tr(e.message))
-      self.widgetLayout.addWidget(label)
-      self.ui.scrollAreaWidgetContents.setLayout(self.widgetLayout)
-      return
-    
-    # Refresh the widget element with the nearly devices
-    if len(self.devices) > 0:
-      self.clearLayout(self.widgetLayout)
-      self.ui.actionSend.setEnabled(False)
-      self.ui.actionInbox.setEnabled(False)
-      message = QLabel(self.tr("Chose from the mobile devices below:"))
-
-      self.widgetLayout.addWidget(message)
-
-      separator = QFrame()
-      separator.setFrameShape(QFrame.HLine)
-      separator.setFrameShadow(QFrame.Sunken)
-
-      self.widgetLayout.addWidget(separator)
-
-      for address, name in self.devices:
-        deviceName = QLabel("    " + address)
-        radio = QRadioButton(name)
-
-        separator = QFrame()
-        separator.setFrameShape(QFrame.HLine)
-        separator.setFrameShadow(QFrame.Sunken)
-
-        self.widgetLayout.addWidget(radio)
-        self.widgetLayout.addWidget(deviceName)
-        self.widgetLayout.addWidget(separator)
-        
-        # Send the address to connect. The 'functools' module is used to
-        radio.toggled.connect(functools.partial(self.radioToggled, address))
-
-      self.ui.scrollAreaWidgetContents.setLayout(self.widgetLayout)
-      self.widgetLayout.addStretch(1) # Important
-    else:
-      message = self.tr("No devices found.\n\t")
-      message += self.tr("Check that the device you are searching for\n\t")
-      message += self.tr("has Bluetooth switched on and is set visible.")
-
-      self.widgetLayout.addWidget(QLabel(message))
-      self.ui.scrollAreaWidgetContents.setLayout(self.widgetLayout)
-
-
-# Here begin
-if __name__ == "__main__":
+# Here begin all
+if __name__ == "__main__": # Application Start point
   app = QApplication(argv)
    
-  # Set the spanish translator
+  # Set the spanish translator ;)
   translator = QTranslator(app)
   translator.load("lang_es")
   app.installTranslator(translator)

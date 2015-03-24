@@ -1,3 +1,9 @@
 *~
 *.swp
 *.pyc
+SMS.py
+SMS_Help.py
+SMS_Send.py
+lang_en.qm
+lang_es.qm
+resources_rc.py

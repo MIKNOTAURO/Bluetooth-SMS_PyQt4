@@ -19,8 +19,7 @@
         <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Objetivo:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Este  software permite enviar y recibir  mensajes SMS a través de un enlace bluetooth.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;¿Cómo funciona?&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;El protocolo RFCOMM es usado para establecer el enlace bluetooth entre la computadora y teléfono móvil. Una vez que el enlace bluetooth es creado, el servicio Dial-up networking (DUN) es buscado para enviar los comandos AT al dispositivo móvil.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;NOTA: Para usar DUN, usted debe encender su adaptador Bluetooth de su computadora y dispositivo móvil, y establecer una conexión segura entre el dispositivo móvil y computadora.
 &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Finalmente, usted ¡necesita tener &lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;crédito&lt;/span&gt; en su dispositivo móvil!&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Enviar mensaje de texto:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;1. Una vez que la lista de dispositivos ha sido actualizada, usted debe elegir un dispositivo móvil para conectar.
 &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;2. Click en el botón &apos;Enviar mensaje&apos;. Este realiza una búsqueda del servico DUN. Si el servicio es encontrado, usted podrá ingresar el número telefónico de destino y el mensaje a enviar.   
-&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;3. Cuando todo este listo, presione el botón OK.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Consultar bandeja de entrada:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;1. Una vez que la lista de dispositivos ha sido actualizada, usted debe elegir un dispositivo móvil para conectar.
-.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;2. Click en el botón &apos;Bandeja de entrada&apos;. Esta acción realiza una búsqueda del servicio DUN. Si el servicio es encontrado, se mostrarán los mensajes de texto que se encuantran en la bandeja de entrada del dispositivo móvil.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;3. Cuando todo este listo, presione el botón OK.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Consultar bandeja de entrada:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;1. Una vez que la lista de dispositivos ha sido actualizada, usted debe elegir un dispositivo móvil para conectar.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;2. Click en el botón &apos;Bandeja de entrada&apos;. Esta acción realiza una búsqueda del servicio DUN. Si el servicio es encontrado, se mostrarán los mensajes de texto que se encuentran en la bandeja de entrada del dispositivo móvil.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -42,7 +41,7 @@
     <message>
         <location filename="main.py" line="80"/>
         <source>Found Dial-up networking at channel </source>
-        <translation type="unfinished">El servicio Dial-up networking fue encontrado</translation>
+        <translation type="unfinished">Servicio Dial-up networking encontrado</translation>
     </message>
     <message>
         <location filename="main.py" line="82"/>
@@ -53,8 +52,8 @@
         <location filename="main.py" line="86"/>
         <source>No available services
 Try another device, please.</source>
-        <translation type="unfinished">No hay servicios disponibles.
-Pruebe con otro dispositivo, por favor.</translation>
+        <translation type="unfinished">No hay servicios disponibles&lt;br&gt;
+Intente con otro dispositivo, por favor.</translation>
     </message>
     <message>
         <location filename="main.py" line="94"/>
@@ -65,7 +64,7 @@ Pruebe con otro dispositivo, por favor.</translation>
         <location filename="main.py" line="93"/>
         <source>No Dial-up networking service detected!
 Try another device, please.</source>
-        <translation type="unfinished">¡El servicio Dial-up networking no está disponible!.
+        <translation type="unfinished">¡Servicio Dial-up networking no disponible!.&lt;br&gt;
 Intente con otro dispositivo móvil, por favor.</translation>
     </message>
     <message>
@@ -83,7 +82,7 @@ Intente con otro dispositivo móvil, por favor.</translation>
         <source>Looking for Dial-up networking service...
 
 </source>
-        <translation type="unfinished">Búscando servicio Dial-up networking...</translation>
+        <translation type="unfinished">Búscando servicio: Dial-up networking...</translation>
     </message>
     <message>
         <location filename="main.py" line="250"/>
@@ -95,12 +94,12 @@ Intente con otro dispositivo móvil, por favor.</translation>
         <location filename="main.py" line="251"/>
         <source>Check that the device you are searching for
 	</source>
-        <translation type="unfinished">Verifique que el dispositivo que está buscando</translation>
+        <translation type="unfinished">Verifique que el dispositivo que está buscando&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="main.py" line="252"/>
         <source>has Bluetooth switched on and is set visible.</source>
-        <translation type="unfinished">tiene el adaptador de Bluetooth encendido.</translation>
+        <translation type="unfinished">tiene el adaptador de Bluetooth encendido y está configurado como visible.</translation>
     </message>
 </context>
 <context>
@@ -173,7 +172,7 @@ Intente con otro dispositivo móvil, por favor.</translation>
     <message>
         <location filename="sms.ui" line="133"/>
         <source>Send a SMS message</source>
-        <translation type="unfinished">Enviar mensaje de texto</translation>
+        <translation type="unfinished">Enviar mensaje SMS</translation>
     </message>
     <message>
         <location filename="sms.ui" line="136"/>
@@ -201,7 +200,7 @@ Intente con otro dispositivo móvil, por favor.</translation>
     <message>
         <location filename="sms_details.ui" line="34"/>
         <source>Phone number</source>
-        <translation type="unfinished">Numero teléfonico</translation>
+        <translation type="unfinished">Número teléfonico</translation>
     </message>
     <message>
         <location filename="sms_details.ui" line="51"/>
